@@ -22,7 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Apply CORS middleware to allow all origins
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  credentials: true, 
+}));
 
 //-------------------- Connect to Database --------------------
 connectDB();
