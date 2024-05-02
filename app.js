@@ -27,6 +27,7 @@ const whitelist = [
   "https://swip-tory-ankitamalik22.vercel.app",
   "http://localhost:5173",
   "http://localhost:4000",
+  "https://swiptory-frontend-omega.vercel.app"
 ];
 
 // Set CORS options
