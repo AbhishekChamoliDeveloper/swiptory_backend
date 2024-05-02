@@ -1,4 +1,3 @@
-// Import required packages
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -21,11 +20,32 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Apply CORS middleware to allow all origins
-app.use(cors({
-  origin: '*',
-  credentials: true, 
-}));
+// Define whitelist
+const whitelist = [
+  "http://localhost:3000",
+  "https://swip-tory-pied.vercel.app",
+  "https://swip-tory-ankitamalik22.vercel.app",
+  "http://localhost:5173",
+  "http://localhost:4000",
+];
+
+// Set CORS options
+const corsOptions = {
+  credentials: true,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g., API requests)
+    if (!origin) return callback(null, true);
+
+    if (whitelist.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 //-------------------- Connect to Database --------------------
 connectDB();
